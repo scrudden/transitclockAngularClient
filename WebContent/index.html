@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html ng-app="transitclock">
+<head>
+	Template for transitclock v2 reporting.
+</head>
+<script type="text/javascript"
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+
+<script type="text/javascript" src="javascript/transitclock.js"></script>
+<script type="text/javascript" src="javascript/Chart.js"></script>
+
+
+<body>
+<div ng-controller="vehicleeventController as vehicleeventCtrl">
+
+	<form name="vehicleeventsForm" ng-submit="vehicleeventCtrl.updateEvents(vehicleevents)">
+		<input type="text" ng-model="vehicleevents.vehicleid"></input>
+		Looking for events for vehicle {{vehicleevents.vehicleid}}
+		<input type="submit"></input>
+	</form>
+	<table border="1">
+			<tr ng-repeat="vehicleevent in vehicleeventCtrl.vehicleevents">
+				<td>{{vehicleevent.vehicleId}}</td>
+				<td>{{vehicleevent.description}}</td>
+				<td>{{vehicleevent.tripId}}</td>
+				<td>{{vehicleevent.time | date :  "dd.MM.y h:mm:ss"}}</td>
+			</tr>
+	</table>
+</div>
+<div ng-controller="avlreportController as avlreportCtrl">
+	<form name="avlreportsForm" ng-submit="avlreportCtrl.updateReports(avlreports)">
+		<input type="text" ng-model="avlreports.vehicleid"></input>
+		Looking for reports for vehicle {{avlreports.vehicleid}}
+		<input type="submit"></input>
+	</form>
+	<table border="1">
+			<tr ng-repeat="avlreport in avlreportCtrl.avlreports">
+				<td>{{avlreport.vehicleId}}</td>
+				<td>{{avlreport.time | date :  "dd.MM.y h:mm:ss"}}</td>
+			</tr>
+	</table>
+</div>
+
+<div ng-controller="predictionaccuracyController as predictionaccuracyCtrl">
+	<form name="predictionaccuaracysForm" ng-submit="predictionaccuracyCtrl.updatePredictions(predictionaccuaracys)">
+		<input type="text" ng-model="predictionaccuaracys.routeid"></input>
+		Looking for prediction accurary for route {{predictionaccuaracys.routeid}}
+		<input type="submit"></input>
+	</form>
+	<table border="1">
+			<tr ng-repeat="predictionaccuracy in predictionaccuracyCtrl.predictionaccuaracys">
+				<td>{{predictionaccuracy.vehicleId}}</td>
+				<td>{{predictionaccuracy.predictedTime | date :  "dd.MM.y h:mm:ss"}}</td>
+			</tr>
+	</table>
+</div>
+
+
+<div ng-controller="stoppathpredictionController as stoppathpredictionCtrl">
+	<form name="stoppathpredictions" ng-submit="stoppathpredictionCtrl.updatePredictions(stoppathpredictions)">
+		<input type="text" ng-model="stoppathpredictions.stopPathIndex"></input>
+		Looking for predictions for stop path index {{predictionaccuaracys.stopPathIndex}}
+		<input type="submit"></input>
+	</form>
+
+	<canvas id="stoppathpredictionChart" width="100%" height="100%"></canvas>
+	<table border="1">
+			<tr ng-repeat="stoppathprediction in stoppathpredictionCtrl.stoppathpredictions">
+				<td>{{stoppathprediction.algorithm}}</td>
+				<td>{{stoppathprediction.predictionTime}}</td>
+				<td>{{stoppathprediction.tripId}}</td>
+			</tr>
+	</table>
+</div>
+
+</body>
+</html>
